@@ -1,0 +1,42 @@
+Task 2.1 — Basic GET with requests
+
+    @stasiax0x0 ➜ /workspaces/lab4.1 (main) $ python3 lab4-1_get.py http://scanme.nmap.org/
+        [+] URL: http://scanme.nmap.org/
+            Status Code: 200
+            Final URL:   http://scanme.nmap.org/
+            Content-Type: text/html
+            Server:       Apache/2.4.7 (Ubuntu)
+            Content-Length: 2068
+@stasiax0x0 ➜ /workspaces/lab4.1 (main) $ python3 lab4-1_get.py http://example.com/
+        [+] URL: http://example.com/
+            Status Code: 200
+            Final URL:   http://example.com/
+            Content-Type: text/html
+            Server:       N/A
+            Content-Length: 363
+@stasiax0x0 ➜ /workspaces/lab4.1 (main) $ python3 lab4-1_get.py http://httpbin.org/
+        [+] URL: http://httpbin.org/
+            Status Code: 200
+            Final URL:   http://httpbin.org/
+            Content-Type: text/html; charset=utf-8
+            Server:       gunicorn/19.9.0
+            Content-Length: 9593
+@stasiax0x0 ➜ /workspaces/lab4.1 (main) $ python3 lab4-1_get.py https://scanme.nmap.org/
+        [!] Request error for https://scanme.nmap.org/: HTTPSConnectionPool(host='scanme.nmap.org', port=443): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7eb50eca7590>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+@stasiax0x0 ➜ /workspaces/lab4.1 (main) $ python3 lab4-1_get.py https://example.com/
+        [+] URL: https://example.com/
+            Status Code: 200
+            Final URL:   https://example.com/
+            Content-Type: text/html
+            Server:       N/A
+            Content-Length: 363
+@stasiax0x0 ➜ /workspaces/lab4.1 (main) $ python3 lab4-1_get.py https://httpbin.org/
+        [+] URL: https://httpbin.org/
+            Status Code: 200
+            Final URL:   https://httpbin.org/
+            Content-Type: text/html; charset=utf-8
+            Server:       gunicorn/19.9.0
+            Content-Length: 9593
+
+@stasiax0x0 ➜ /workspaces/lab4.1 (main) $ python3 lab4-1_get.py /thispagedoesnotexist
+[!] Request error for /thispagedoesnotexist

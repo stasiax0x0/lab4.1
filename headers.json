@@ -1,0 +1,10 @@
+[
+  {
+    "url": "http://httpbin.org/",
+    "status": 503,
+    "final_url": "http://httpbin.org/",
+    "server": "awselb/2.0",
+    "content_type": "text/html",
+    "content_length": "162"
+  }
+]

@@ -27,10 +27,13 @@ Step 4 — Inspect headers with a different User-Agent
     The status and server header are the same, but the content-length is different. When the User-Agent is MyTestAgent/1.0 it's 177 and when it's not it's 172
 
 2. If it had changed, what could that mean about the server’s defenses?
-
+    it could indicate the server has security measures that detect and respond differently to unknown or suspicious user agents
 
 Step 5 — Short synthesis
 
 1. What three pieces of information from the steps above would be most useful in a reconnaissance report, and why?
+    Server header:  Reveals the web server software and version, which can help identify vulnerabilities
+    Status codes:   Shows if sites are accessible, redirected, or have errors, helping map the application structure
+    Form elements:  Identifies potential attack surfaces like login forms or input fields that could be exploited.
 
 2. One quick defensive suggestion an admin could use to reduce information leakage from headers.
