@@ -1,10 +1,36 @@
+Step 1 — Quick HTTP header check with curl
+
 1. What status line did you get and what does it mean?
     200 and it means the HHTP request was successful
 
 2. What is the Server header value? Is it specific (nginx/1.22) or generic?
     Apache/2.4.7 (Ubuntu). It's specific
 
-3. What is the <title> of the page (if present)?
+Step 2 — Fetch the full page body
+
+1. What is the <title> of the page (if present)?
     <title>Go ahead and ScanMe!</title>
     
-4. Do you see any <form> elements? What are their action attributes (copy them)?
+2. Do you see any <form> elements? What are their action attributes (copy them)?
+    $ head -n 100 scanme.html
+        <form class="nst-search" id="nst-head-search" action="/search/">
+
+Step 3 — Compare curl and requests
+1. Did requests and curl report the same status and server header?
+    Yes, 200 and Apache/2.4.7 (Ubuntu)
+
+2. If different, what header or other factor might explain it (redirects, default headers, user agent)?
+
+Step 4 — Inspect headers with a different User-Agent
+
+1. Did the response change (status, server header, content-length) when the User-Agent was MyTestAgent/1.0?
+    The status and server header are the same, but the content-length is different. When the User-Agent is MyTestAgent/1.0 it's 177 and when it's not it's 172
+
+2. If it had changed, what could that mean about the server’s defenses?
+
+
+Step 5 — Short synthesis
+
+1. What three pieces of information from the steps above would be most useful in a reconnaissance report, and why?
+
+2. One quick defensive suggestion an admin could use to reduce information leakage from headers.

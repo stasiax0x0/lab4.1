@@ -1,0 +1,49 @@
+Step 3 — Compare curl and requests
+
+        Status: 200
+
+        Final URL: http://scanme.nmap.org/
+
+        Server header: Apache/2.4.7 (Ubuntu)
+
+        Content-Type: text/html
+
+        First 200 chars of body:\n <!DOCTYPE html>\n<html lang="en">\n<head>\n<title>Go ahead and ScanMe!</title>\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<meta name="theme-color" content="#2A0D45">\n<link rel="p
+
+
+Step 4 — Inspect headers with a different User-Agent
+
+    $ curl -i  -A "MyTestAgent/1.0" https://httpbin.org/headers
+            HTTP/2 200 
+            date: Fri, 07 Nov 2025 10:22:28 GMT
+            content-type: application/json
+            content-length: 177
+            server: gunicorn/19.9.0
+            access-control-allow-origin: *
+            access-control-allow-credentials: true
+
+            {
+            "headers": {
+                "Accept": "*/*", 
+                "Host": "httpbin.org", 
+                "User-Agent": "MyTestAgent/1.0", 
+                "X-Amzn-Trace-Id": "Root=1-690dc862-64411c5e205e49ff08fbc7a8"
+            }
+            }
+    $ curl -i  https://httpbin.org/headers
+            HTTP/2 200 
+            date: Fri, 07 Nov 2025 10:22:38 GMT
+            content-type: application/json
+            content-length: 172
+            server: gunicorn/19.9.0
+            access-control-allow-origin: *
+            access-control-allow-credentials: true
+
+            {
+            "headers": {
+                "Accept": "*/*", 
+                "Host": "httpbin.org", 
+                "User-Agent": "curl/8.5.0", 
+                "X-Amzn-Trace-Id": "Root=1-690dc86e-6adf79365f8d9a81118443cb"
+            }
+            }
