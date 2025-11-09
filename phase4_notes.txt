@@ -1,0 +1,61 @@
+Task 4.1 — User-Agent variation
+
+1. Run the probe and observe differences in status, server, and length.
+        $ python3 lab4-1_header_probe.py http://scanme.nmap.org/
+            {'ua': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'status': 200, 'server': 'Apache/2.4.7 (Ubuntu)', 'length': 6974}
+            {'ua': 'curl/7.68.0', 'status': 200, 'server': 'Apache/2.4.7 (Ubuntu)', 'length': 6974}
+            {'ua': 'sqlmap/1.5.4', 'status': 200, 'server': 'Apache/2.4.7 (Ubuntu)', 'length': 6974}
+            {'ua': 'Nikto/2.1.6', 'status': 200, 'server': 'Apache/2.4.7 (Ubuntu)', 'length': 6974}
+            {'ua': 'python-requests/2.x', 'status': 200, 'server': 'Apache/2.4.7 (Ubuntu)', 'length': 6974}
+
+        $ python3 lab4-1_header_probe.py http://example.com/
+            {'ua': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'status': 200, 'server': '', 'length': 513}
+            {'ua': 'curl/7.68.0', 'status': 200, 'server': '', 'length': 513}
+            {'ua': 'sqlmap/1.5.4', 'status': 200, 'server': '', 'length': 513}
+            {'ua': 'Nikto/2.1.6', 'status': 200, 'server': '', 'length': 513}
+            {'ua': 'python-requests/2.x', 'status': 200, 'server': '', 'length': 513}
+
+        $ python3 lab4-1_header_probe.py http://httpbin.org/
+            {'ua': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'status': 200, 'server': 'gunicorn/19.9.0', 'length': 9591}
+            {'ua': 'curl/7.68.0', 'status': 200, 'server': 'gunicorn/19.9.0', 'length': 9591}
+            {'ua': 'sqlmap/1.5.4', 'status': 200, 'server': 'gunicorn/19.9.0', 'length': 9591}
+            {'ua': 'Nikto/2.1.6', 'status': 200, 'server': 'gunicorn/19.9.0', 'length': 9591}
+            {'ua': 'python-requests/2.x', 'status': 200, 'server': 'gunicorn/19.9.0', 'length': 9591}
+
+
+2. Does the server respond differently to curl, sqlmap, or Nikto user agents?
+    No they don't
+    What This Means:
+        No Advanced Security Systems - None of these sites have WAFs that detect and block security tools
+        Equal Treatment - Known hacking tools get the same access as regular browsers
+        Easy Reconnaissance - Attackers can freely use automated tools without detection
+
+Task 4.2 — Additional header tests
+    Exercise: Log any changes in response status, body, or headers.        
+
+    $ python3 lab4-1_header_probe.py http://scanme.nmap.org/
+        {'ua': 'TEST: X-Forwarded-For: 1.2.3.4', 'status': 200, 'server': 'Apache/2.4.7 (Ubuntu)', 'length': 6974}
+        {'ua': 'TEST: Referer: http://evil.example/', 'status': 200, 'server': 'Apache/2.4.7 (Ubuntu)', 'length': 6974}
+        {'ua': 'TEST: Accept-Language: fr-FR', 'status': 200, 'server': 'Apache/2.4.7 (Ubuntu)', 'length': 6974}
+
+    $ python3 lab4-1_header_probe.py http://example.com/
+        {'ua': 'TEST: X-Forwarded-For: 1.2.3.4', 'status': 200, 'server': '', 'length': 513}
+        {'ua': 'TEST: Referer: http://evil.example/', 'status': 200, 'server': '', 'length': 513}
+        {'ua': 'TEST: Accept-Language: fr-FR', 'status': 200, 'server': '', 'length': 513}    
+
+    $ python3 lab4-1_header_probe.py http://httpbin.org/
+        {'ua': 'TEST: X-Forwarded-For: 1.2.3.4', 'status': 200, 'server': 'gunicorn/19.9.0', 'length': 9591}
+        {'ua': 'TEST: Referer: http://evil.example/', 'status': 200, 'server': 'gunicorn/19.9.0', 'length': 9591}
+        {'ua': 'TEST: Accept-Language: fr-FR', 'status': 200, 'server': 'gunicorn/19.9.0', 'length': 9591}    
+
+        
+Results:
+- NO changes detected in status codes, server headers, or content length
+- All sites treated these headers as normal requests
+- No special security filtering or behavior observed
+
+Security Implications:
+- No IP spoofing protection via X-Forwarded-For
+- No referrer-based security checks  
+- No language-based content variation
+- No advanced WAF/security header filtering

@@ -12,14 +12,17 @@ Step 2 — Fetch the full page body
     <title>Go ahead and ScanMe!</title>
     
 2. Do you see any <form> elements? What are their action attributes (copy them)?
-    $ head -n 100 scanme.html
+   
+ $ head -n 100 scanme.html
         <form class="nst-search" id="nst-head-search" action="/search/">
+    action="/search/"  --> when this form is submitted, the data will be sent to /search/ endpoint on the same domain
 
 Step 3 — Compare curl and requests
 1. Did requests and curl report the same status and server header?
     Yes, 200 and Apache/2.4.7 (Ubuntu)
 
 2. If different, what header or other factor might explain it (redirects, default headers, user agent)?
+    If they were different, it could be caused by redirects, different user-agents or the server acting different based on client type
 
 Step 4 — Inspect headers with a different User-Agent
 
@@ -27,7 +30,7 @@ Step 4 — Inspect headers with a different User-Agent
     The status and server header are the same, but the content-length is different. When the User-Agent is MyTestAgent/1.0 it's 177 and when it's not it's 172
 
 2. If it had changed, what could that mean about the server’s defenses?
-    it could indicate the server has security measures that detect and respond differently to unknown or suspicious user agents
+    If a server blocks or changes responses for certain User-Agents, it may mean they have security measures that detect and respond to reconnaissance attempts.
 
 Step 5 — Short synthesis
 
@@ -37,3 +40,4 @@ Step 5 — Short synthesis
     Form elements:  Identifies potential attack surfaces like login forms or input fields that could be exploited.
 
 2. One quick defensive suggestion an admin could use to reduce information leakage from headers.
+    Minimize server headers, so configure the web server to remove or genericize the Server header (e.g., just show "Apache" instead of "Apache/2.4.7 (Ubuntu)")

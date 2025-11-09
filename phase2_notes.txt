@@ -40,3 +40,55 @@ Task 2.1 — Basic GET with requests
 
 @stasiax0x0 ➜ /workspaces/lab4.1 (main) $ python3 lab4-1_get.py /thispagedoesnotexist
 [!] Request error for /thispagedoesnotexist
+
+
+Task 2.2 — Collecting headers across many pages
+    headers.json:
+            {
+                "url": "http://scanme.nmap.org/",
+                "status": 200,
+                "final_url": "http://scanme.nmap.org/",
+                "server": "Apache/2.4.7 (Ubuntu)",
+                "content_type": "text/html",
+                "content_length": "2068"
+            }
+            ]                                                                                                                                                                                    [
+            {
+                "url": "http://example.com/",
+                "status": 200,
+                "final_url": "http://example.com/",
+                "server": null,
+                "content_type": "text/html",
+                "content_length": "363"
+            }
+            ]                                                                                                                                                                                [
+            {
+                "url": "http://httpbin.org/",
+                "status": 200,
+                "final_url": "http://httpbin.org/",
+                "server": "gunicorn/19.9.0",
+                "content_type": "text/html; charset=utf-8",
+                "content_length": "9593"
+            }
+            ]
+
+
+
+Discuss variations and what is actionable information.
+
+1. Server Header 
+        scanme.nmap.org: Apache/2.4.7 (Ubuntu) - Very specific
+        example.com: null - Completely hidden
+        httpbin.org: gunicorn/19.9.0 - Specific 
+
+        Actionable Intelligence:
+
+            For Attackers:
+                Research known vulnerabilities in Apache 2.4.7 
+                Look for gunicorn 19.9.0 specific exploits or misconfiguration
+                example.com provides no obvious software-specific attack vector
+
+            For Defenders:
+
+                Imitate example.com - Remove or genericize server headers
+

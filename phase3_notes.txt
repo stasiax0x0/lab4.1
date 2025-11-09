@@ -1,0 +1,43 @@
+Task 3.1 — Extract title, meta description, and forms
+1. Inspect forms: are there login forms? hidden fields? suspicious parameters?
+    No
+
+2. Note title and meta descriptions — are they meaningful?
+    scanme.nmap.org: Title "Go ahead and ScanMe!" indicates this is a test/educational environment meant for scanning practice
+
+    example.com: Title "Example Domain" indicates this is a demonstration site
+
+    httpbin.org: Title "httpbin.org" matches the service purpose
+
+Task 3.2 — Keyword scanning in page text
+
+   $ python3 lab4-1_parse.py http://scanme.nmap.org/
+        "keyword_counts": {
+            "admin": 0,
+            "login": 0,
+            "debug": 0,
+            "error": 0
+
+    $ python3 lab4-1_parse.py http://example.com/    
+        "keyword_counts": {
+            "admin": 0,
+            "login": 0,
+            "debug": 0,
+            "error": 0
+    
+    $ python3 lab4-1_parse.py http://httpbin.org/
+         "keyword_counts": {
+            "admin": 0,
+            "login": 0,
+            "debug": 0,
+            "error": 0
+
+    This means they are very secure and no sensitive terms are visible     
+    $ python3 lab4-1_parse.py http://testphp.vulnweb.com   
+        "keyword_counts": {
+            "admin": 0,
+            "login": 0,
+            "debug": 0,
+            "error": 1
+
+        This means the page could be displaying an error message to users or it might have help text about error handling or might actually experiencing a minor error    
